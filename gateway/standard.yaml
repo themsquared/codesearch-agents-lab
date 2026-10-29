@@ -1,0 +1,26 @@
+# GitHub read only through enterprise agentgateway, codeSearch mode, loopback only.
+config:
+  adminAddr: 127.0.0.1:15110
+  statsAddr: 127.0.0.1:15120
+  readinessAddr: 127.0.0.1:15121
+  session:
+    key: d4578fe4951154130a47548f6cb1163363dea4f26071bcfd9860d91d570fc66c
+gateways:
+  default:
+    bindAddress: 127.0.0.1
+    port: 3110
+mcp:
+  gateways: [default]
+  toolMode: standard
+  codeModeSettings:
+    timeout: 2m0s
+    cpuTimeout: 2s
+  policies:
+    mcpAuthorization:
+      rules:
+      - 'mcp.tool.name in ["actions_get", "actions_list", "custom_properties_read", "get_code_quality_finding", "get_code_scanning_alert", "get_commit", "get_dependabot_alert", "get_discussion", "get_discussion_comments", "get_file_contents", "get_gist", "get_global_security_advisory", "get_job_logs", "get_label", "get_latest_release", "get_me", "get_notification_details", "get_release_by_tag", "get_repository_tree", "get_secret_scanning_alert", "get_tag", "get_team_members", "get_teams", "issue_read", "list_branches", "list_code_scanning_alerts", "list_commits", "list_dependabot_alerts", "list_discussion_categories", "list_discussions", "list_gists", "list_global_security_advisories", "list_issue_fields", "list_issue_types", "list_issues", "list_label", "list_notifications", "list_org_repository_security_advisories", "list_pull_requests", "list_releases", "list_repository_collaborators", "list_repository_security_advisories", "list_secret_scanning_alerts", "list_starred_repositories", "list_tags", "projects_get", "projects_list", "pull_request_read", "repository_ruleset_read", "search_code", "search_commits", "search_issues", "search_orgs", "search_pull_requests", "search_repositories", "search_users", "ui_get"]'
+  targets:
+  - name: github
+    stdio:
+      cmd: python3
+      args: ["bridge/gh_upstream.py"]

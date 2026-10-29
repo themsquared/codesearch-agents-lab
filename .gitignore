@@ -1,0 +1,9 @@
+secrets/
+logs/
+run/
+bin/*
+!bin/README.md
+.env
+*.lic
+results/raw/
+__pycache__/
